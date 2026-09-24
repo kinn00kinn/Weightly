@@ -22,7 +22,7 @@ async function count(dirs) {
   return total;
 }
 
-const source = await count(['src', 'worker']);
+const source = await count(['src', 'worker', 'functions']);
 const tests = await count(['test']);
 console.log(`Source LOC (nonblank): ${source}`);
 console.log(`Test LOC (nonblank):   ${tests}`);

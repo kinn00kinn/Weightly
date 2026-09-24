@@ -15,7 +15,7 @@ A deliberately small weight logger that emphasizes the estimated trend instead o
 
 ## Simplicity budget
 
-Weightly treats code size as a product constraint. `npm run loc` counts nonblank runtime lines under `src/` and `worker/` and fails above **650 LOC**. Tests are reported separately. The MVP intentionally avoids an ORM and chart library.
+Weightly treats code size as a product constraint. `npm run loc` counts nonblank runtime lines under `src/`, `worker/`, and `functions/` and fails above **650 LOC**. Tests are reported separately. The MVP intentionally avoids an ORM and chart library.
 
 ## Local setup
 
@@ -46,42 +46,28 @@ Create a Google OAuth Web client. Add this local redirect URI:
 http://localhost:8787/api/auth/callback/google
 ```
 
-For production, use the Worker API hostname, for example:
+Production uses the Pages origin:
 
 ```text
-https://api.weightly.example.com/api/auth/callback/google
+https://weightly.kinn-kinn.com/api/auth/callback/google
 ```
 
-Set Worker secrets rather than committing them:
+Set production secrets in Cloudflare Pages:
 
-```bash
-npx wrangler secret put BETTER_AUTH_SECRET
-npx wrangler secret put GOOGLE_CLIENT_ID
-npx wrangler secret put GOOGLE_CLIENT_SECRET
-```
+- `BETTER_AUTH_SECRET`
+- `GOOGLE_CLIENT_ID`
+- `GOOGLE_CLIENT_SECRET`
 
-`WEB_ORIGIN` must be the Pages origin and `BETTER_AUTH_URL` must be the Worker API origin. For the simplest cookie behavior in production, use custom hostnames under the same parent domain (for example `weightly.example.com` and `api.weightly.example.com`).
+## Production
 
-## Deploy
+Weightly is deployed as a single-origin Cloudflare application:
 
-### Worker
+- App: https://weightly.kinn-kinn.com
+- Frontend: Cloudflare Pages
+- API: Pages Functions under `/api/*`
+- Database: D1 `weightly`
 
-1. Create production D1 and replace the placeholder `database_id` in `wrangler.toml`.
-2. Set `WEB_ORIGIN` and `BETTER_AUTH_URL` to production values.
-3. Apply migrations and deploy.
-
-```bash
-npx wrangler d1 migrations apply weightly --remote
-npm run worker:deploy
-```
-
-### Pages
-
-Create a Cloudflare Pages project from this repository:
-
-- Build command: `npm run build`
-- Output directory: `dist`
-- Environment variable: `VITE_API_BASE=https://<worker-api-host>`
+The Pages project is `weightly-web`. The custom domain points to `weightly-web.pages.dev`.
 
 ## Checks
 
@@ -92,4 +78,4 @@ npm run worker:check
 npm run loc
 ```
 
-Tracked in #1.
+Tracked in #1 and #3.
