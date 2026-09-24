@@ -1,0 +1,26 @@
+{
+  "name": "weightly",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "node --test test/*.test.mjs",
+    "loc": "node scripts/loc.mjs",
+    "check": "npm test && npm run build && npm run loc",
+    "worker:dev": "wrangler dev",
+    "worker:deploy": "wrangler deploy",
+    "worker:check": "wrangler deploy --dry-run"
+  },
+  "dependencies": {
+    "better-auth": "1.7.5",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "6.1.1",
+    "vite": "8.3.0",
+    "wrangler": "4.135.0"
+  }
+}
