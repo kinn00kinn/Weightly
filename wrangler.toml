@@ -4,11 +4,11 @@ compatibility_date = "2026-09-24"
 compatibility_flags = ["nodejs_compat"]
 
 [vars]
-WEB_ORIGIN = "http://localhost:5173"
-BETTER_AUTH_URL = "http://localhost:8787"
+WEB_ORIGIN = "https://weightly.kinn-kinn.com"
+BETTER_AUTH_URL = "https://weightly.kinn-kinn.com"
 
 [[d1_databases]]
 binding = "DB"
 database_name = "weightly"
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "cd9c1a48-079d-4404-a077-14f7b6124327"
 migrations_dir = "migrations"
